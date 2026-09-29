@@ -64,6 +64,21 @@ body{min-height:100vh;display:flex;justify-content:center}
 .goldLabel b{font-size:22px;display:block}
 .goldLabel span{font-size:14px;display:block;margin-top:6px}
 .scratchHint{font-size:14px;color:#6a5144;text-align:center;max-width:320px}
+.scratchContinue{
+  display:none;
+  width:min(88vw,360px);
+  min-height:52px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--wine2),var(--wine));
+  color:#fff;
+  font-weight:700;
+  letter-spacing:.08em;
+  cursor:pointer;
+  box-shadow:0 10px 26px rgba(85,22,51,.22);
+}
+.scratchContinue.show{display:block}
+
 @media(min-width:700px){
   body{padding:20px 0}
   #app{min-height:auto;border-radius:26px;overflow:hidden;box-shadow:0 20px 70px #0008}
@@ -113,6 +128,7 @@ body{min-height:100vh;display:flex;justify-content:center}
       </div>
 
       <div class="scratchHint">Deslizad el dedo sobre la caja dorada.</div>
+      <button id="scratchContinue" class="scratchContinue" type="button">CONTINUAR →</button>
     </div>
   </section>
 
@@ -141,6 +157,7 @@ body{min-height:100vh;display:flex;justify-content:center}
     [...grid.children].forEach(c => c.style.opacity = '1');
     grid.dataset.completed = '';
     label.style.display = 'block';
+    scratchContinue.classList.remove('show');
   }
 
   function show(n) {
@@ -165,6 +182,7 @@ body{min-height:100vh;display:flex;justify-content:center}
   // Build an opaque gold cover from real HTML cells, not canvas.
   const grid = document.getElementById('goldGrid');
   const label = document.getElementById('goldLabel');
+  const scratchContinue = document.getElementById('scratchContinue');
   const cols = 18, rows = 12;
   for (let i = 0; i < cols * rows; i++) {
     const cell = document.createElement('div');
@@ -203,7 +221,7 @@ body{min-height:100vh;display:flex;justify-content:center}
     if (removed.size > 12) label.style.display = 'none';
     if (removed.size > 82 && !grid.dataset.completed) {
       grid.dataset.completed = '1';
-      setTimeout(() => show(6), 900);
+      scratchContinue.classList.add('show');
     }
   }
 
