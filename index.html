@@ -242,7 +242,8 @@ body{min-height:100vh;display:flex;justify-content:center}
   });
   grid.addEventListener('pointercancel', () => scratching = false);
 
-  continueBtn.addEventListener('click', e => {
+  scratchContinue.addEventListener('click', e => {
+    e.preventDefault();
     e.stopPropagation();
     show(6);
   });
