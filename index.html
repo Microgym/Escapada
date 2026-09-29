@@ -75,7 +75,11 @@ body{min-height:100vh;display:flex;justify-content:center}
   const show=(n)=>{step=n;screens.forEach((s,i)=>s.classList.toggle('active',i===n));window.scrollTo(0,0);};
   document.querySelectorAll('.next').forEach(b=>b.addEventListener('click',(e)=>{{e.stopPropagation();show(Math.min(step+1,screens.length-1));}}));
   // On the first five screens, tapping anywhere advances. This avoids missed taps on mobile.
-  screens.slice(0,5).forEach((s,i)=>s.addEventListener('click',()=>show(i+1)));
+  screens.forEach((s,i)=>{
+    if([0,1,2,3,4,6,7].includes(i)){
+      s.addEventListener('click',()=>show(Math.min(i+1,screens.length-1)));
+    }
+  });
   document.getElementById('restart').addEventListener('click',(e)=>{{e.stopPropagation();show(0);}});
   document.querySelectorAll('.backBtn').forEach(btn=>{{
     btn.addEventListener('click',(e)=>{{
